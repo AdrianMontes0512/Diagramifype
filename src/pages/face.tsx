@@ -221,20 +221,24 @@ export default function FacePage() {
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
               <pre className="text-green-400 text-sm">
-{`{
-  "code": "with Diagram(\\"Stateful Architecture\\", show=False):\\n   
+{`with Diagram("Clustered Web Services", show=False):
+    dns = Route53("dns")
+    lb = ELB("lb")
 
-  with Cluster(\\"Apps\\"):\\n        svc = Service(\\"svc\\")\\n  
+    with Cluster("Services"):
+        svc_group = [ECS("web1"),
+                     ECS("web2"),
+                     ECS("web3")]
 
-  sts = StatefulSet(\\"sts\\")\\n\\n        apps = []\\n       
+    with Cluster("DB Cluster"):
+        db_primary = RDS("userdb")
+        db_primary - [RDS("userdb ro")]
 
-  for _ in range(3):\\n            pod = Pod(\\"pod\\")\\n    
+    memcached = ElastiCache("memcached")
 
-   pvc = PVC(\\"pvc\\")\\n            pod - sts - pvc\\n   
-            
-   apps.append(svc >> pod >> pvc)\\n\\n    apps << PV(\\"pv\\") 
-   << StorageClass(\\"sc\\")"
-}`}
+    dns >> lb >> svc_group
+    svc_group >> db_primary
+    svc_group >> memcached`}
               </pre>
               <div className="mt-4 text-center">
                 <span className="text-blue-400">↓ Se convierte en ↓</span>
