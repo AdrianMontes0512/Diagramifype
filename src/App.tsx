@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
-import MainPage from './pages/mainPage';
+import MainPage from './pages/mainPageNew';
 import ProtectedRoute from './utilities/ProtectedRoute';
 import FacePage from './pages/face';
+import ProductManagement from './components/ProductManagement';
 
 export default function App() {
 
@@ -13,6 +14,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <MainPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/productos"
+        element={
+          <ProtectedRoute>
+            <ProductManagement />
           </ProtectedRoute>
         }
       />

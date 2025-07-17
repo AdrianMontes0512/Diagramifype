@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const API_AUTH = axios.create({
-  baseURL: 'https://advydp11z8.execute-api.us-east-1.amazonaws.com/auth', 
+  baseURL: 'https://yq0at4hack.execute-api.us-east-1.amazonaws.com/dev', 
   headers: {
     'Content-Type': 'application/json',
   },
@@ -35,7 +35,7 @@ export const Register = async (loginData: {
 
 export const ValidateToken = async (token: string) => {
   try {
-    const response = await API_AUTH.post('/validate', {
+    const response = await API_AUTH.post('/validar-token', {
       token: token
     });
     return response.data;
